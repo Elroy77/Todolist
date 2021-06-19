@@ -16,7 +16,7 @@ namespace WebServers.Repositories.Tasks
         }    
         public async Task<IEnumerable<Entities.Task>> GetTaskList()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.Tasks.Include(x => x.Assignee).ToListAsync();
         }
         public async Task<Entities.Task> GetById(Guid Id)
         {

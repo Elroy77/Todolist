@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebServers.Data;
 
 namespace WebServers.Migrations
 {
     [DbContext(typeof(TodolistDbContext))]
-    partial class TodolistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210619192713_UpdateModels")]
+    partial class UpdateModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,6 +161,9 @@ namespace WebServers.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AssigeeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("AssigneeId")
                         .HasColumnType("uniqueidentifier");
 
@@ -178,7 +183,7 @@ namespace WebServers.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssigneeId");
+                    b.HasIndex("AssigeeId");
 
                     b.ToTable("Tasks");
                 });
@@ -314,7 +319,7 @@ namespace WebServers.Migrations
                 {
                     b.HasOne("WebServers.Entities.User", "Assignee")
                         .WithMany()
-                        .HasForeignKey("AssigneeId");
+                        .HasForeignKey("AssigeeId");
 
                     b.Navigation("Assignee");
                 });

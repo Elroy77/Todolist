@@ -6,11 +6,11 @@ namespace WebModels.Enums
 {
     public enum Status
     {
-        Open,
         New,
         Inprogress,
         Resolved,
         Done,
+        Open,
         Canceled,
         Closed
     }

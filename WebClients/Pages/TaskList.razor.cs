@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using WebClients.services.Tasks;
 using WebModels;
 
 namespace WebClients.Pages
 {
-    public partial class Todolist
+    public partial class TaskList
     {
         [Inject] private ITaskApiClient TaskApiClient { get; set; }
 

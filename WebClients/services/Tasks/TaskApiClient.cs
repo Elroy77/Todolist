@@ -16,11 +16,16 @@ namespace WebClients.services.Tasks
         {
             _httpClient = httpClient;
         }
-
         public async Task<List<TaskDTO>> GetAllTask()
         {
             var result = await _httpClient.GetFromJsonAsync<List<TaskDTO>>("/api/tasks");
                 return result;
+        }
+
+        public async Task<TaskDTO> GetTaskDetail(string Id)
+        {
+            var result = await _httpClient.GetFromJsonAsync<TaskDTO>($"/api/tasks/{Id}");
+            return result;
         }
     }
 }

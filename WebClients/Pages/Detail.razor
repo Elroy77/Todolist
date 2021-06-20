@@ -1,0 +1,55 @@
+﻿@page "/taskDetails/{taskId}"
+@using WebClients.services.Tasks;
+@using WebClients.Components;
+@using WebModels;
+
+@inject ITaskApiClient TaskApiClient
+
+<h3>DetailTask Id : @taskId</h3>
+@if (Task == null)
+{
+    <LoadingIndicator></LoadingIndicator>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <td>@Task.Name</td>
+        </tr>
+        <tr>
+            <th>AssignessId</th>
+            <td>@Task.AssigneeId</td>
+        </tr>
+        <tr>
+            <th>AssigneeName</th>
+            <td>@Task.AssigneeName</td>
+        </tr>
+        <tr>
+            <th>CreateDate</th>
+            <td>@Task.CreateDate.ToString("dd-MM-yyyy hh:mm")</td>
+
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>@Task.Status</td>
+        </tr>
+        <tr>
+            <th>Priority</th>
+            <td>@Task.Priority</td>
+
+
+        </tr>
+    </table>
+}
+@code {
+    [Parameter]
+    public string taskId { get; set; }
+
+    private TaskDTO Task { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        Task = await TaskApiClient.GetTaskDetail(taskId);
+    }
+}

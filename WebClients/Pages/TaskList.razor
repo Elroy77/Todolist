@@ -1,0 +1,37 @@
+﻿@page "/TaskList"
+@using WebClients.Components
+<h3>Task</h3>
+@if (Tasks == null)
+{
+    <LoadingIndicator></LoadingIndicator>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Priority</th>
+                <th>Assigness</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var taskitem in Tasks)
+            {
+                <tr>
+
+                    <td>@taskitem.Name</td>
+                    <td>@taskitem.Priority</td>
+                    <td>@taskitem.AssigneeName</td>
+                    <td>@taskitem.CreateDate.ToString("dd-MM-yyyy hh:mm")</td>
+                    <td>@taskitem.Status</td>
+                    <td><a href="/taskDetails/@taskitem.Id">Detail</a></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}

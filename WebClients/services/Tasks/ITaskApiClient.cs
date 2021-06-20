@@ -9,5 +9,6 @@ namespace WebClients.services.Tasks
     public interface ITaskApiClient
     {
         Task<List<TaskDTO>> GetAllTask();
+        Task<TaskDTO> GetTaskDetail(string Id);
     }
 }

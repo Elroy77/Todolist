@@ -1,0 +1,7 @@
+basic project functionality: Create, Update, Delete, Search, Login, Register,..
+Back-End: Asp.net Core Web Api, using Entity Framework Core Code First, identity,..
+Font-End: Blazor Web Assembly
+
+Created by Nguyen Van Manh
+Contact: Manhnv.dotnet@gmail.com
+references: tedu

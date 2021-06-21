@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,10 @@ namespace WebClients.Pages
         {
             Tasks = await TaskApiClient.GetAllTask();
             Assignees = await UserApiClient.GetAllAssignees();
+        }
+        public void SearchForm(EditContext context)
+        {
+            var name = TaskListSearch.Name;
         }
     }
     public class TaskListSearch

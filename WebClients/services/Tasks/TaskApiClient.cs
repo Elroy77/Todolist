@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using WebModels;
+using WebModels.TaskRequest;
 
 namespace WebClients.services.Tasks
 {
@@ -16,10 +17,18 @@ namespace WebClients.services.Tasks
         {
             _httpClient = httpClient;
         }
-        public async Task<List<TaskDTO>> GetAllTask()
+
+        public async Task<List<TaskDTO>> GetAllTask(TaskListSearch taskListSearch)
         {
-            var result = await _httpClient.GetFromJsonAsync<List<TaskDTO>>("/api/tasks");
+            string url = $"/api/tasks?name={taskListSearch.Name}&assigneeid={taskListSearch.AssigneeId}&priority={taskListSearch.Priority}";
+            var result = await _httpClient.GetFromJsonAsync<List<TaskDTO>>(url);
                 return result;
+        }
+
+        public async Task<bool> CreateTask(TaskCreateRequest request)
+        {
+            var result = await _httpClient.PostAsJsonAsync("/api/tasks",request);
+            return result.IsSuccessStatusCode;
         }
 
         public async Task<TaskDTO> GetTaskDetail(string Id)

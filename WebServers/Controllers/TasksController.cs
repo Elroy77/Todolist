@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebModels;
+using WebModels.TaskRequest;
 using WebServers.Repositories;
 
 namespace WebServers.Controllers
@@ -21,9 +22,9 @@ namespace WebServers.Controllers
 
         // api/tasks/
         [HttpGet]
-        public async Task<IActionResult> GetAllTask()
+        public async Task<IActionResult> GetAllTask([FromQuery] TaskListSearch taskListSearch)
         {
-            var tasks = await _taskRepository.GetTaskList();
+            var tasks = await _taskRepository.GetTaskList(taskListSearch);
             var TaskDTOs = tasks.Select(x => new TaskDTO()
             {
                 Status = x.Status,
@@ -56,7 +57,7 @@ namespace WebServers.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TaskCreateRequest request)
+        public async Task<IActionResult> Create([FromBody] TaskCreateRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

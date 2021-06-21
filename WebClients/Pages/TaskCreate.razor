@@ -1,0 +1,55 @@
+﻿@page "/TaskCreate"
+@using WebModels.TaskRequest;
+@using WebModels.Enums;
+@using WebClients.services.Tasks;
+@inject ITaskApiClient TaskApiClient
+@inject NavigationManager NavigationManager
+@inject IToastService ToastService
+
+<h3>TaskCreate</h3>
+
+<EditForm Model="Task" OnSubmit="@SubmitTask">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <InputText type="text" class="form-control" placeholder="Enter Name" @bind-Value="@Task.Name"></InputText>
+        <small id="Name" class="form-text text-muted">this is your name</small>
+    </div>
+    <div class="form-group">
+        <label for="Priority">Priority</label>
+        <InputSelect class="form-control" @bind-Value="Task.Priority">
+
+            @*  <option value="" selected>--Select--</option>*@
+            @foreach (var item in Enum.GetNames(typeof(Priority)))
+            {
+                <option value="@item">@item</option>
+            }
+        </InputSelect>
+        <small id="Priority" class="form-text text-muted">Choose priority</small>
+    </div>
+    <div class="form-group">
+        <label for="Status">Status</label>
+        <InputSelect class="form-control" @bind-Value="Task.Status">
+            @* <option value="" selected>--Select--</option>*@
+            @foreach (var item in Enum.GetNames(typeof(Status)))
+            {
+                <option value="@item">@item</option>
+            }
+        </InputSelect>
+        <small id="Status" class="form-text text-muted">Choose Status</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+@code {
+    TaskCreateRequest Task = new TaskCreateRequest();
+
+    private async Task SubmitTask(EditContext context)
+    {
+        var result = await TaskApiClient.CreateTask(Task);
+        if (result) {
+            NavigationManager.NavigateTo("/TaskList");
+            ToastService.ShowSuccess("Create " + Task.Name + " success");
+        }
+    }
+}

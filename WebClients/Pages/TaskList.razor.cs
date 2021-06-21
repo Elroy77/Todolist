@@ -8,6 +8,7 @@ using WebClients.services.Tasks;
 using WebClients.services.Users;
 using WebModels;
 using WebModels.Enums;
+using WebModels.TaskRequest;
 
 namespace WebClients.Pages
 {
@@ -22,18 +23,13 @@ namespace WebClients.Pages
         private TaskListSearch TaskListSearch = new TaskListSearch();
         protected override async Task OnInitializedAsync()
         {
-            Tasks = await TaskApiClient.GetAllTask();
+            Tasks = await TaskApiClient.GetAllTask(TaskListSearch);
             Assignees = await UserApiClient.GetAllAssignees();
         }
-        public void SearchForm(EditContext context)
+        private async void SearchForm(EditContext context)
         {
-            var name = TaskListSearch.Name;
+            
+            Tasks = await TaskApiClient.GetAllTask(TaskListSearch);
         }
-    }
-    public class TaskListSearch
-    {
-        public Guid AssigneeId { get; set; }
-        public string Name { get; set; }
-        public Priority Priority { get; set; }
-    }    
+    } 
 }

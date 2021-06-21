@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebModels;
+using WebServers.Entities;
 
 namespace WebServers.Repositories.Users
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
+        public Task <List<User>> GetUserList();
     }
 }

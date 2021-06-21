@@ -15,6 +15,7 @@ using WebServers.Data;
 using Microsoft.EntityFrameworkCore;
 using WebServers.Repositories;
 using WebServers.Repositories.Tasks;
+using WebServers.Repositories.Users;
 
 namespace WebServers
 {
@@ -40,6 +41,7 @@ namespace WebServers
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"));
             });
             services.AddTransient<ITaskRepository, TaskRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddCors(options => 
             {
                 options.AddPolicy("CorsPolicy",

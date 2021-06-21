@@ -1,12 +1,47 @@
 ﻿@page "/TaskList"
 @using WebClients.Components
+@using WebModels.Enums 
+
 <h3>Task</h3>
-@if (Tasks == null)
+@if (Tasks == null || Assignees == null)
 {
     <LoadingIndicator></LoadingIndicator>
 }
 else
 {
+<div class="row">
+    <EditForm Model="@TaskListSearch">
+        <div class="row">
+            <div class="col">
+                <label>Name</label>
+                <InputText class="form-control" @bind-Value="TaskListSearch.Name"></InputText>
+            </div>
+            <div class="col">
+                <label>Assignee</label>
+                <InputSelect class="form-control" @bind-Value="TaskListSearch.AssigneeId">
+                    @foreach (var assignee in Assignees)
+                        {
+                        <option value="@assignee.Id">@assignee.FullName</option>
+                        }
+                </InputSelect>
+            </div>
+            <div class="col">
+                <label>Priority</label>
+                <InputSelect class="form-control" @bind-Value="TaskListSearch.Priority">
+                    @foreach (var priorityItem in Enum.GetNames(typeof(Priority)))
+                        {
+                        @*<option value="" selected>--Select--</option>*@
+                        <option value="@priorityItem">@priorityItem</option>
+                        }
+                </InputSelect>
+            </div>
+            <div class="col mt-2">
+                <button class="btn btn-success mt-4" type="submit">Search</button>
+            </div>
+        </div>
+    </EditForm>
+</div>
+<div class="row mt-5">
     <table class="table">
         <thead>
             <tr>
@@ -34,4 +69,5 @@ else
             }
         </tbody>
     </table>
+</div>
 }

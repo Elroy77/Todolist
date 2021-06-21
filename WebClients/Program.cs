@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using WebClients.services.Tasks;
+using WebClients.services.Users;
 
 namespace WebClients
 {
@@ -18,6 +19,7 @@ namespace WebClients
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.Services.AddTransient<ITaskApiClient, TaskApiClient>();
+            builder.Services.AddTransient<IUserApiClient, UserApiClient>();
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5000") });
 

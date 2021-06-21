@@ -13,5 +13,6 @@ namespace WebClients.services.Tasks
         Task<TaskDTO> GetTaskDetail(string Id);
         Task<bool> CreateTask(TaskCreateRequest request);
         Task<bool> UpdateTask(Guid Id, TaskUpdateRequest request);
+        Task<bool> DeleteTask(Guid id);
     }
 }

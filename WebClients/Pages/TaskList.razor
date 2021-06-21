@@ -2,7 +2,9 @@
 @using WebClients.Components
 @using WebModels.Enums
 @inject IToastService toastService
- <h2 class="h1-responsive font-weight-bold text-center my-4">Task List</h2>
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+<h2 class="h1-responsive font-weight-bold text-center my-4">Task List</h2>
 @if (Tasks == null || Assignees == null)
 {
     <LoadingIndicator></LoadingIndicator>
@@ -70,13 +72,19 @@ else
                         <td>@taskitem.AssigneeName</td>
                         <td>@taskitem.CreateDate.ToString("dd-MM-yyyy hh:mm")</td>
                         <td>@taskitem.Status</td>
-                        <td><a href="/taskDetails/@taskitem.Id">Detail</a></td>
-                        <td><a href="/TaskUpdate/@taskitem.Id">Update</a></td>
-                        <td><a href="/TaskUpdate/@taskitem.Id">Delete</a></td>
+                        <td><a href="/taskDetails/@taskitem.Id" class="btn btn-primary">Detail</a></td>
+                        <td><a href="/TaskUpdate/@taskitem.Id" class="btn btn-warning">Update</a></td>
+                        <td><button class="btn btn-danger" @onclick="()=> OnDeleteTask(taskitem.Id)">Delete</button></td>
                     </tr>
 
                 }
             </tbody>
         </table>
     </div>
+    <Confirmation ConfirmationMessage="Are you sure to delete?"
+                  ConfirmationTitle="Delete Task"
+                  @ref="DeleteConfirmation"
+                  ConfirmationChanged="OnConfirmDeleteTask">
+
+    </Confirmation>
 }

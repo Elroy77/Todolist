@@ -35,6 +35,11 @@ namespace WebClients.services.Tasks
             var result = await _httpClient.PutAsJsonAsync($"/api/tasks/{Id}", request);
             return result.IsSuccessStatusCode;
         }
+        public async Task<bool> DeleteTask(Guid id)
+        {
+            var result = await _httpClient.DeleteAsync($"/api/tasks/{id}");
+            return result.IsSuccessStatusCode;
+        }
         public async Task<TaskDTO> GetTaskDetail(string Id)
         {
             var result = await _httpClient.GetFromJsonAsync<TaskDTO>($"/api/tasks/{Id}");

@@ -69,7 +69,7 @@ namespace WebServers.Controllers
                 CreateDate = DateTime.Now,
                 Id = request.Id
             });
-            return CreatedAtAction(nameof(GetById), new { id = task.Id}, task);
+            return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }
 
         [HttpPut]
@@ -87,7 +87,7 @@ namespace WebServers.Controllers
             taskFromDb.Status = request.Status;
             taskFromDb.Priority = request.Priority;
             var taskResult = await _taskRepository.Update(taskFromDb);
-            return Ok(new TaskDTO() 
+            return Ok(new TaskDTO()
             {
                 Name = taskResult.Name,
                 Status = taskResult.Status,
@@ -95,6 +95,25 @@ namespace WebServers.Controllers
                 Id = taskResult.Id,
                 AssigneeId = taskResult.AssigneeId,
                 CreateDate = taskResult.CreateDate
+            });
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var task = await _taskRepository.GetById(id);
+            if (task == null) return NotFound($"{id} is not found");
+
+            await _taskRepository.Delete(task);
+            return Ok(new TaskDTO()
+            {
+                Name = task.Name,
+                Status = task.Status,
+                Id = task.Id,
+                AssigneeId = task.AssigneeId,
+                Priority = task.Priority,
+                CreateDate = task.CreateDate
             });
         }
     }

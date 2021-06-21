@@ -4,4 +4,4 @@ Font-End: Blazor Web Assembly
 
 Created by Nguyen Van Manh
 Contact: Manhnv.dotnet@gmail.com
-references: tedu
+References: Tedu

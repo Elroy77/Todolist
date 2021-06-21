@@ -4,8 +4,8 @@
 @using WebModels;
 
 @inject ITaskApiClient TaskApiClient
-
-<h3>DetailTask Id : @taskId</h3>
+ <h2 class="h1-responsive font-weight-bold text-center my-4">Task Detail</h2>
+<h3>Id : @taskId</h3>
 @if (Task == null)
 {
     <LoadingIndicator></LoadingIndicator>

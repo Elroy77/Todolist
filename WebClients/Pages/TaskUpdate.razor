@@ -1,13 +1,17 @@
-﻿@page "/TaskCreate"
+﻿@page "/TaskUpdate/{taskId}"
 @using WebModels.TaskRequest;
 @using WebModels.Enums;
 @using WebClients.services.Tasks;
+@using WebClients.Components;
 @inject ITaskApiClient TaskApiClient
 @inject NavigationManager NavigationManager
 @inject IToastService ToastService
 
- <h2 class="h1-responsive font-weight-bold text-center my-4">Task Create</h2>
-
+ <h2 class="h1-responsive font-weight-bold text-center my-4">Task Update</h2>
+@if (Task == null)
+{
+    <LoadingIndicator></LoadingIndicator>
+}
 <EditForm Model="Task" OnSubmit="@SubmitTask">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -42,14 +46,27 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
 @code {
-    TaskCreateRequest Task = new TaskCreateRequest();
+    [Parameter]
+    public string taskId { get; set; }
+
+    TaskUpdateRequest Task = new TaskUpdateRequest();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var taskDTO = await TaskApiClient.GetTaskDetail(taskId);
+        Task.Name = taskDTO.Name;
+        Task.Status = taskDTO.Status;
+        Task.Priority = taskDTO.Priority;
+    }
+
 
     private async Task SubmitTask(EditContext context)
     {
-        var result = await TaskApiClient.CreateTask(Task);
-        if (result) {
+        var result = await TaskApiClient.UpdateTask(Guid.Parse(taskId), Task);
+        if (result)
+        {
             NavigationManager.NavigateTo("/TaskList");
-            ToastService.ShowSuccess("Create " + Task.Name + " success");
+            ToastService.ShowSuccess("Update " + Task.Name + " success");
         }
     }
 }

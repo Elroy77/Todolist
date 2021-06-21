@@ -30,7 +30,11 @@ namespace WebClients.services.Tasks
             var result = await _httpClient.PostAsJsonAsync("/api/tasks",request);
             return result.IsSuccessStatusCode;
         }
-
+        public async Task<bool> UpdateTask(Guid Id, TaskUpdateRequest request)
+        {
+            var result = await _httpClient.PutAsJsonAsync($"/api/tasks/{Id}", request);
+            return result.IsSuccessStatusCode;
+        }
         public async Task<TaskDTO> GetTaskDetail(string Id)
         {
             var result = await _httpClient.GetFromJsonAsync<TaskDTO>($"/api/tasks/{Id}");

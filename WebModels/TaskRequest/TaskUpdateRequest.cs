@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using WebModels.Enums;
 
-namespace WebModels
+namespace WebModels.TaskRequest
 {
     public class TaskUpdateRequest
     {

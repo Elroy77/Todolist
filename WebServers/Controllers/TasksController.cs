@@ -74,7 +74,7 @@ namespace WebServers.Controllers
 
         [HttpPut]
         [Route("{Id}")]
-        public async Task<IActionResult> Update(Guid Id, TaskUpdateRequest request)
+        public async Task<IActionResult> Update(Guid Id, [FromBody] TaskUpdateRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

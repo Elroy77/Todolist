@@ -2,8 +2,7 @@
 @using WebClients.Components
 @using WebModels.Enums
 @inject IToastService toastService
-
-<h3>TaskList</h3>
+ <h2 class="h1-responsive font-weight-bold text-center my-4">Task List</h2>
 @if (Tasks == null || Assignees == null)
 {
     <LoadingIndicator></LoadingIndicator>
@@ -57,6 +56,8 @@ else
                     <th>Date</th>
                     <th>Status</th>
                     <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -70,6 +71,8 @@ else
                         <td>@taskitem.CreateDate.ToString("dd-MM-yyyy hh:mm")</td>
                         <td>@taskitem.Status</td>
                         <td><a href="/taskDetails/@taskitem.Id">Detail</a></td>
+                        <td><a href="/TaskUpdate/@taskitem.Id">Update</a></td>
+                        <td><a href="/TaskUpdate/@taskitem.Id">Delete</a></td>
                     </tr>
 
                 }

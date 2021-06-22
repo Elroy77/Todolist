@@ -13,7 +13,7 @@ else
 {
     <div class="row">
         <div class="col mt-2">
-            <a href="/TaskCreate" class="btn btn-success mt-4">Create</a>
+            <a href="/TaskCreate" class="btn btn-success mt-4"><i class="oi oi-plus"></i> Create</a>
         </div>
         <EditForm Model="@TaskListSearch" OnSubmit="@SearchForm">
             <div class="row">
@@ -48,7 +48,7 @@ else
             </div>
         </EditForm>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-5" style="width:100%">
         <table class="table">
             <thead>
                 <tr>
@@ -68,7 +68,7 @@ else
                 <tr>
 
                     <td>@taskitem.Name</td>
-                    <td>
+                    <td style="font-size: small">
                         @if (taskitem.Priority == Priority.High)
                         {
                             <i class="btn btn-danger" style="font-size: small; font-family: Arial; font-style: normal">High</i>

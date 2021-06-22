@@ -46,6 +46,7 @@ namespace WebClients.Pages
             {
                 await TaskApiClient.DeleteTask(DeleteId);
                 Tasks = await TaskApiClient.GetAllTask(TaskListSearch);
+                toastService.ShowSuccess("Delete task success");
             }
         }
     } 
